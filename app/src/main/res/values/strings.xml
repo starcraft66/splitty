@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Splitty</string>
+    <string name="title_activity_add_event">AddEventActivity</string>
 </resources>
