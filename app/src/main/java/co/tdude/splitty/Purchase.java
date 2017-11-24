@@ -10,22 +10,20 @@ import java.util.Date;
 public class Purchase {
 
     private int id;
+    private int buyerId;
     private String name;
     private double cost;
     private Date date;
-    private String buyer;
-    private ArrayList<Contact> shared;
 
     public Purchase() {
     }
 
-    public Purchase(int id, String name, double cost, Date date, String buyer, ArrayList<Contact> shared) {
+    public Purchase(int id, int buyerId, String name, double cost, Date date) {
         this.id = id;
+        this.buyerId = buyerId;
         this.name = name;
         this.cost = cost;
         this.date = date;
-        this.buyer = buyer;
-        this.shared = shared;
     }
 
     public int getId() {
@@ -34,6 +32,14 @@ public class Purchase {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getBuyerId() {
+        return buyerId;
+    }
+
+    public void setBuyerId(int buyerId) {
+        this.buyerId = buyerId;
     }
 
     public String getName() {
@@ -58,21 +64,5 @@ public class Purchase {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public String getBuyer() {
-        return buyer;
-    }
-
-    public void setBuyer(String buyer) {
-        this.buyer = buyer;
-    }
-
-    public ArrayList<Contact> getShared() {
-        return shared;
-    }
-
-    public void setShared(ArrayList<Contact> shared) {
-        this.shared = shared;
     }
 }
