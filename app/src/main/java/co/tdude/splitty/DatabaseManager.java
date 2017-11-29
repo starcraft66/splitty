@@ -22,11 +22,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createContact = "create table CONTACT (ID integer primary key autoincrement, FIRST_NAME text, LAST_NAME text, EMAIL text )";
-        String createEvent = "create table EVENT (ID integer primary key autoincrement, NAME text, TOTAL_COST number, START_DATE date, END_DATE date";
-        String createPurchase = "create table PURCHASE (ID integer primary key autoincrement, NAME text, COST number, DATE date, BUYER text";
-        String createContactGroup = "";
-        String createPurchaseGroup = "";
+        String createContact = "create table CONTACT (ID integer primary key autoincrement, C_FIRST text, C_LAST text, EMAIL text)";
+        String createEvent = "create table EVENT (ID integer primary key autoincrement, NAME text, C_GROUP_ID number, P_GROUP_ID number, START_DATE date, END_DATE date)";
+        String createPurchase = "create table PURCHASE (ID integer primary key autoincrement, NAME text, BUYER_ID number, COST number, DATE date)";
+        String createContactGroup = "create table CONTACT_GROUP (ID number, NUM_PERSON number)";
+        String createPurchaseGroup = "create table PURCHASE_GROUP (ID number, NUM_PURCHASE number, TOTAL_COST number)";
 
         db.execSQL(createContact);
         db.execSQL(createEvent);
@@ -55,7 +55,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void insertEvent(Event e) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sqlInsert = "insert into EVENT values(null, '" + e.getName() + "', " + e.getTotalCost() + ", '" + e.getStartDate() + "', '" + e.getEndDate() + "')";
+        String sqlInsert = "insert into EVENT values(null, '" + e.getName() + "', " + e.getContactGroupId() + ", " + e.getPurchaseGroupId() + ", '" + e.getStartDate() + "', '" + e.getEndDate() + "')";
 
         db.execSQL(sqlInsert);
         db.close();
@@ -63,7 +63,26 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void insertPurchase(Purchase p) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sqlInsert = "insert into PURCHASE values(null, '" + p.getName() + "', " + p.getCost() + ", '" + p.getDate() + "', '" + p.getBuyerId() + "')";
+        String sqlInsert = "insert into PURCHASE values(null, '" + p.getName() + "', " + p.getBuyerId() + ", " + p.getCost() + ", '" + p.getDate() + "')";
+
+        db.execSQL(sqlInsert);
+        db.close();
+    }
+
+    public void insertContactGroup(ContactGroup cg) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sqlInsert = "insert into CONTACT_GROUP values(null, " + cg.getId() + ", " + cg.getNumPeople() + ")";
+
+        db.execSQL(sqlInsert);
+        db.close();
+    }
+
+    public void insertPurchaseGroup(PurchaseGroup pg) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sqlInsert = "insert into PURCHASE_GROUP values(null, " + pg.getId() + ", " + pg.getNumPurchase() + ", " + pg.getTotalCost() + ")";
+
+        db.execSQL(sqlInsert);
+        db.close();
     }
 
     public Contact selectContactById(int contactId) {
@@ -103,11 +122,12 @@ public class DatabaseManager extends SQLiteOpenHelper {
             if (curs.moveToFirst()) {
                 int id = curs.getInt(0);
                 String name = curs.getString(1);
-                double totalCost = curs.getDouble(2);
-                Date startDate = new Date(curs.getLong(3) * 1000);
-                Date endDate = new Date(curs.getLong(4) * 1000);
+                int contactGroupId = curs.getInt(2);
+                int purchaseGroupId = curs.getInt(3);
+                Date startDate = new Date(curs.getLong(4) * 1000);
+                Date endDate = new Date(curs.getLong(5) * 1000);
 
-                e = new Event(id, name, totalCost, startDate, endDate);
+                e = new Event(id, name, contactGroupId, purchaseGroupId, startDate, endDate);
             }
         } catch (Exception ex) {
             Log.wtf("selectEventById error", ex.getMessage());
@@ -126,17 +146,60 @@ public class DatabaseManager extends SQLiteOpenHelper {
             Cursor curs = db.rawQuery(sqlQuery, null);
             if (curs.moveToFirst()) {
                 int id = curs.getInt(0);
-                int buyerId = curs.getInt(1);
-                String name = curs.getString(2);
+                String name = curs.getString(1);
+                int buyerId = curs.getInt(2);
                 double cost = curs.getDouble(3);
                 Date date = new Date(curs.getLong(4) * 1000);
 
-                p = new Purchase(id, buyerId, name, cost, date);
+                p = new Purchase(id, name, buyerId, cost, date);
             }
         } catch (Exception ex) {
             Log.wtf("selectPurchaseById error", ex.getMessage());
         }
 
         return p;
+    }
+
+    public ContactGroup selectContactGroupById(int contactGroupId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContactGroup cg = null;
+
+        try {
+            String sqlQuery = "select * from CONTACT_GROUP where ID = " + contactGroupId;
+
+            Cursor curs = db.rawQuery(sqlQuery, null);
+            if (curs.moveToFirst()) {
+                int id = curs.getInt(0);
+                int numPeople = curs.getInt(1);
+
+                cg = new ContactGroup(id, numPeople);
+            }
+        } catch (Exception ex){
+            Log.wtf("selectContactGroupById error", ex.getMessage());
+        }
+
+        return cg;
+    }
+
+    public PurchaseGroup selectPurchaseGroupById(int purchaseGroupId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        PurchaseGroup pg = null;
+
+        try {
+            String sqlQuery = "select * from PURCHASE_GROUP where ID = " + purchaseGroupId;
+
+            Cursor curs = db.rawQuery(sqlQuery, null);
+            if (curs.moveToFirst()) {
+                int id = curs.getInt(0);
+                int numPurchase = curs.getInt(1);
+                double totalCost = curs.getDouble(2);
+
+                pg = new PurchaseGroup(id, numPurchase, totalCost);
+            }
+        } catch (Exception ex){
+            Log.wtf("selectContactGroupById error", ex.getMessage());
+        }
+
+        return pg;
     }
 }

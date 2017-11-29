@@ -6,31 +6,31 @@ package co.tdude.splitty;
 
 public class ContactGroup {
 
-    private int contactId;
-    private int eventId;
+    private int id;
+    private int numPeople;
 
     public ContactGroup (){
 
     }
 
-    public ContactGroup(int contactId, int eventId) {
-        this.contactId = contactId;
-        this.eventId = eventId;
+    public ContactGroup(int id, int numPeople) {
+        this.id = id;
+        this.numPeople = numPeople;
     }
 
-    public int getContactId() {
-        return contactId;
+    public int getId() {
+        return id;
     }
 
-    public void setContactId(int contactId) {
-        this.contactId = contactId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getEventId() {
-        return eventId;
+    public int getNumPeople() {
+        return numPeople;
     }
 
-    public void setEventId(int eventId) {
-        this.eventId = eventId;
+    public void setNumPeople(int numPeople) {
+        this.numPeople = numPeople;
     }
 }

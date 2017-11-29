@@ -10,18 +10,18 @@ import java.util.Date;
 public class Purchase {
 
     private int id;
-    private int buyerId;
     private String name;
+    private int buyerId;
     private double cost;
     private Date date;
 
     public Purchase() {
     }
 
-    public Purchase(int id, int buyerId, String name, double cost, Date date) {
+    public Purchase(int id, String name, int buyerId, double cost, Date date) {
         this.id = id;
-        this.buyerId = buyerId;
         this.name = name;
+        this.buyerId = buyerId;
         this.cost = cost;
         this.date = date;
     }
@@ -34,20 +34,20 @@ public class Purchase {
         this.id = id;
     }
 
-    public int getBuyerId() {
-        return buyerId;
-    }
-
-    public void setBuyerId(int buyerId) {
-        this.buyerId = buyerId;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getBuyerId() {
+        return buyerId;
+    }
+
+    public void setBuyerId(int buyerId) {
+        this.buyerId = buyerId;
     }
 
     public double getCost() {
