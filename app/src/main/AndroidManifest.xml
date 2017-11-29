@@ -19,7 +19,9 @@
         <activity
             android:name=".AddEventActivity"
             android:label="@string/title_activity_add_event"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+            <action android:name="android.intent.action.HELP" />
+        </activity>
     </application>
 
 </manifest>
