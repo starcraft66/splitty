@@ -17,7 +17,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="21dp"
         android:ems="10"
-        android:hint="Enter Event Name"
+        android:hint="@string/entereventname"
         android:inputType="textPersonName"
         android:textAlignment="center" />
 
@@ -29,7 +29,7 @@
         android:layout_below="@+id/eventName"
         android:layout_marginTop="26dp"
         android:ems="10"
-        android:hint="Short Desctiption"
+        android:hint="@string/shortdesc"
         android:inputType="textPersonName"
         android:textAlignment="center" />
 
@@ -41,7 +41,7 @@
         android:layout_below="@+id/desc"
         android:layout_marginStart="17dp"
         android:layout_marginTop="17dp"
-        android:text="Invite" />
+        android:text="@string/invite" />
 
     <Button
         android:id="@+id/createBtn"
@@ -50,7 +50,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/inviteBtn"
         android:layout_marginBottom="12dp"
-        android:text="Create" />
+        android:text="@string/create" />
 
     <Button
         android:id="@+id/cancelBtn"
@@ -60,7 +60,7 @@
         android:layout_alignBottom="@+id/createBtn"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="16dp"
-        android:text="Back" />
+        android:text="@string/back" />
 
     <ScrollView
         android:layout_below="@id/inviteBtn"

@@ -2,4 +2,11 @@
     <string name="app_name">Splitty</string>
     <string name="title_activity_add_event">AddEventActivity</string>
     <string name="title_activity_list_purchase">ListPurchaseActivity</string>
+
+    <string name="eventsexpenses">Events / Expenses</string>
+    <string name="entereventname">Enter Event Name</string>
+    <string name="shortdesc">Short Desctiption</string>
+    <string name="invite">Invite</string>
+    <string name="create">Create</string>
+    <string name="back">Back</string>
 </resources>
