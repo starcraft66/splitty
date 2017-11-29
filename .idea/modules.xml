@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Splitty.iml" filepath="$PROJECT_DIR$/Splitty.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/splitty.iml" filepath="$PROJECT_DIR$/splitty.iml" />
     </modules>
   </component>
 </project>
