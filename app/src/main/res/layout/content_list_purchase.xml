@@ -11,11 +11,58 @@
 
     <TextView
         android:id="@+id/oweLabel"
+        style="@style/TextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="28dp"
-        android:text="TextView" />
+        android:layout_marginTop="14dp"
+        android:text="@string/youowe" />
+
+    <TextView
+        android:id="@+id/receiveLabel"
+        style="@style/TextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/oweLabel"
+        android:layout_below="@+id/oweLabel"
+        android:layout_marginTop="11dp"
+        android:text="@string/youreceive" />
+
+    <TextView
+        android:id="@+id/receiveAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/receiveLabel"
+        android:layout_alignBottom="@+id/receiveLabel"
+        android:layout_marginStart="18dp"
+        android:layout_toEndOf="@+id/receiveLabel" />
+
+    <TextView
+        android:id="@+id/oweAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/receiveLabel"
+        android:layout_alignEnd="@+id/receiveAmount" />
+
+    <ScrollView
+        android:layout_below="@+id/receiveLabel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="?android:attr/listDivider"/>
+
+        </LinearLayout>
+    </ScrollView>
+
 </RelativeLayout>

@@ -24,6 +24,8 @@ public class ListPurchaseActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
     }
 
 }

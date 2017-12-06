@@ -12,4 +12,6 @@
     <string name="title_activity_add_friend">AddFriend</string>
     <string name="search">Search</string>
     <string name="add_friend">Add Friend</string>
+    <string name="youowe">You owe </string>
+    <string name="youreceive">You receive </string>
 </resources>
