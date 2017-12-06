@@ -25,8 +25,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
         String createContact = "create table CONTACT (ID integer primary key autoincrement, C_FIRST text, C_LAST text, EMAIL text)";
         String createEvent = "create table EVENT (ID integer primary key autoincrement, NAME text, C_GROUP_ID number, P_GROUP_ID number, START_DATE date, END_DATE date)";
         String createPurchase = "create table PURCHASE (ID integer primary key autoincrement, NAME text, BUYER_ID number, COST number, DATE date)";
-        String createContactGroup = "create table CONTACT_GROUP (ID number, NUM_PERSON number)";
-        String createPurchaseGroup = "create table PURCHASE_GROUP (ID number, NUM_PURCHASE number, TOTAL_COST number)";
+        String createContactGroup = "create table CONTACT_GROUP (ID number, CONTACT_ID number, EVENT_ID)";
+        String createPurchaseGroup = "create table PURCHASE_GROUP (ID number, PURCHASE_ID number, EVENT_ID number)";
 
         db.execSQL(createContact);
         db.execSQL(createEvent);
@@ -91,6 +91,32 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
         try {
             String sqlQuery = "select * from CONTACT where ID = " + contactId;
+
+            Cursor curs = db.rawQuery(sqlQuery, null);
+
+            if (curs.moveToFirst()) {
+                int id = curs.getInt(0);
+                String firstName = curs.getString(1);
+                String lastName = curs.getString(2);
+                String email = curs.getString(3);
+                double loaned = curs.getDouble(4);
+                double owed = curs.getDouble(5);
+
+                c = new Contact(id, firstName, lastName, email, loaned, owed);
+            }
+        } catch (Exception ex) {
+            Log.wtf("selectContactById error", ex.getMessage());
+        }
+
+        return c;
+    }
+
+    public Contact selectCOntactByName(String c_first, String c_last){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Contact c = null;
+
+        try {
+            String sqlQuery = "select * from CONTACT where C_FIRST = '" + c_first + "' AND C_LAST = '" + c_last +"'";
 
             Cursor curs = db.rawQuery(sqlQuery, null);
 
