@@ -10,19 +10,15 @@ public class Contact {
     private String firstName;
     private String lastName;
     private String email;
-    private double loaned;
-    private double owed;
 
     public Contact() {
     }
 
-    public Contact(int id, String firstName, String lastName, String email, double loaned, double owed) {
+    public Contact(int id, String firstName, String lastName, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.loaned = loaned;
-        this.owed = owed;
     }
 
     public int getId() {
@@ -53,19 +49,4 @@ public class Contact {
         this.email = email;
     }
 
-    public double getLoaned() {
-        return loaned;
-    }
-
-    public void setLoaned(double loaned) {
-        this.loaned = loaned;
-    }
-
-    public double getOwed() {
-        return owed;
-    }
-
-    public void setOwed(double owed) {
-        this.owed = owed;
-    }
 }

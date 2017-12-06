@@ -22,11 +22,11 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createContact = "create table CONTACT (ID integer primary key autoincrement, C_FIRST text, C_LAST text, EMAIL text)";
-        String createEvent = "create table EVENT (ID integer primary key autoincrement, NAME text, C_GROUP_ID number, P_GROUP_ID number, START_DATE date, END_DATE date)";
-        String createPurchase = "create table PURCHASE (ID integer primary key autoincrement, NAME text, BUYER_ID number, COST number, DATE date)";
-        String createContactGroup = "create table CONTACT_GROUP (ID number, CONTACT_ID number, EVENT_ID)";
-        String createPurchaseGroup = "create table PURCHASE_GROUP (ID number, PURCHASE_ID number, EVENT_ID number)";
+        String createContact = "create table CONTACT (C_ID integer primary key autoincrement, C_FIRST text, C_LAST text, EMAIL text)";
+        String createEvent = "create table EVENT (E_ID integer primary key autoincrement, NAME text, C_GROUP_ID number, P_GROUP_ID number, START_DATE date, END_DATE date)";
+        String createPurchase = "create table PURCHASE (P_ID integer primary key autoincrement, NAME text, BUYER_ID number, COST number, DATE date)";
+        String createContactGroup = "create table CONTACT_GROUP (C_GROUP_ID number, C_ID number, E_ID)";
+        String createPurchaseGroup = "create table PURCHASE_GROUP (P_GROUP_ID number, P_ID number, E_ID number)";
 
         db.execSQL(createContact);
         db.execSQL(createEvent);
@@ -99,10 +99,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 String firstName = curs.getString(1);
                 String lastName = curs.getString(2);
                 String email = curs.getString(3);
-                double loaned = curs.getDouble(4);
-                double owed = curs.getDouble(5);
 
-                c = new Contact(id, firstName, lastName, email, loaned, owed);
+                c = new Contact(id, firstName, lastName, email);
             }
         } catch (Exception ex) {
             Log.wtf("selectContactById error", ex.getMessage());
@@ -125,10 +123,8 @@ public class DatabaseManager extends SQLiteOpenHelper {
                 String firstName = curs.getString(1);
                 String lastName = curs.getString(2);
                 String email = curs.getString(3);
-                double loaned = curs.getDouble(4);
-                double owed = curs.getDouble(5);
 
-                c = new Contact(id, firstName, lastName, email, loaned, owed);
+                c = new Contact(id, firstName, lastName, email);
             }
         } catch (Exception ex) {
             Log.wtf("selectContactById error", ex.getMessage());
@@ -228,5 +224,35 @@ public class DatabaseManager extends SQLiteOpenHelper {
         }
 
         return pg;
+    }
+
+    public void updateContactById(int contactId, String firstName, String lastName, String email, double loaned, double owed){
+        String sqlUpdate = "UPDATE CONTACT " +
+                "SET C_FIRST = " +firstName + ", C_LAST = " +email +", C_EMAIL = " +email +" " +
+                "WHERE C_ID = " +contactId;
+    }
+
+    public void updateEventById(int eventId, String name, int contactGroupId, int purchaseGroupId, Date startDate, Date endDate){
+        String sqlUpdate ="UPDATE EVENT " +
+                "SET NAME = " +name +", C_GROUP_ID = " +contactGroupId +", P_GROUP_ID = " +purchaseGroupId +", START_DATE = " +startDate +", END_DATE = " +endDate +" " +
+                "WHERE E_ID = " +eventId;
+    }
+
+    public void updatePurchaseById(int purchaseId, String name, int buyerId, double cost, Date date){
+        String sqlUpdate = "UPDATE PURCHASE " +
+                "SET P_NAME = " +name + ", BUYER_ID = " +buyerId +", COST = " +cost +", DATE = " +date +" "+
+                "WHERE P_ID = " +purchaseId;
+    }
+
+    public void updateContactGroupById(int contactGroupId, int contactId, int eventId){
+        String sqlUpdate = "UPDATE CONTACT_GROUP " +
+                "SET C_ID = " +contactId +", E_ID = " +eventId +" " +
+                "WHERE C_GROUP_ID = " +contactGroupId;
+    }
+
+    public void updatePurchaseGroupById(int purchaseGroupId, int purchaseId, double eventId){
+        String sqlUpdate = "UPDATE CONTACT_GROUP " +
+                "SET C_ID = " +purchaseId +", E_ID = " +eventId +" " +
+                "WHERE P_GROUP_ID = " +purchaseGroupId;
     }
 }
