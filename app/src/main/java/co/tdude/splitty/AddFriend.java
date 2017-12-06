@@ -28,14 +28,14 @@ public class AddFriend extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friend);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         db = new DatabaseManager(this);
-        resultView = (TableLayout)findViewById(R.id.resultTable);
+        resultView = findViewById(R.id.resultTable);
         selectedContacts = new ArrayList<>();
 
-        final EditText myTextBox = (EditText) findViewById(R.id.search);
+        final EditText myTextBox = findViewById(R.id.search);
         myTextBox.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {

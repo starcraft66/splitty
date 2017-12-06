@@ -99,6 +99,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
                 c = new Contact(id, firstName, lastName, email);
             }
+            curs.close();
         } catch (Exception ex) {
             Log.wtf("selectContactById error", ex.getMessage());
         }
@@ -117,7 +118,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
             candy.setEmail(cursor.getString(3));
             query.add(candy);
         }
-
+        cursor.close();
         return query;
     }
 
@@ -139,6 +140,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
                 e = new Event(id, name, contactGroupId, purchaseGroupId, startDate, endDate);
             }
+            curs.close();
         } catch (Exception ex) {
             Log.wtf("selectEventById error", ex.getMessage());
         }
@@ -163,6 +165,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
                 p = new Purchase(id, name, buyerId, cost, date);
             }
+            curs.close();
         } catch (Exception ex) {
             Log.wtf("selectPurchaseById error", ex.getMessage());
         }
@@ -185,6 +188,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
                 cg = new ContactGroup(id, contactId, eventId);
             }
+            curs.close();
         } catch (Exception ex){
             Log.wtf("selectContactGroupById error", ex.getMessage());
         }
@@ -207,6 +211,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
                 pg = new PurchaseGroup(id, numPurchase, totalCost);
             }
+            curs.close();
         } catch (Exception ex){
             Log.wtf("selectContactGroupById error", ex.getMessage());
         }
