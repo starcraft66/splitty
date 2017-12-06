@@ -6,11 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Date;
-
-/**
- * Created by wfour on 2017-11-22.
- */
 
 public class DatabaseManager extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "splittyDB";
@@ -109,28 +106,19 @@ public class DatabaseManager extends SQLiteOpenHelper {
         return c;
     }
 
-    public Contact selectCOntactByName(String c_first, String c_last){
+    public ArrayList<Contact> selectContactByName(String c_first){
+        ArrayList<Contact> query = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
-        Contact c = null;
-
-        try {
-            String sqlQuery = "select * from CONTACT where C_FIRST = '" + c_first + "' AND C_LAST = '" + c_last +"'";
-
-            Cursor curs = db.rawQuery(sqlQuery, null);
-
-            if (curs.moveToFirst()) {
-                int id = curs.getInt(0);
-                String firstName = curs.getString(1);
-                String lastName = curs.getString(2);
-                String email = curs.getString(3);
-
-                c = new Contact(id, firstName, lastName, email);
-            }
-        } catch (Exception ex) {
-            Log.wtf("selectContactById error", ex.getMessage());
+        Cursor cursor = db.rawQuery("SELECT * FROM CONTACT WHERE C_FIRST like '%"+c_first+"%'", null);
+        while (cursor.moveToNext()) {
+            Contact candy = new Contact();
+            candy.setFirstName(cursor.getString(1));
+            candy.setLastName(cursor.getString(2));
+            candy.setEmail(cursor.getString(3));
+            query.add(candy);
         }
 
-        return c;
+        return query;
     }
 
     public Event selectEventById(int eventId) {

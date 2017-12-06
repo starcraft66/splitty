@@ -55,7 +55,7 @@ public class AddFriend extends AppCompatActivity {
 
     public void search(CharSequence s){
         resultView.removeAllViews();
-        final ArrayList<Contact> contacts = db.findByName(s.toString());
+        final ArrayList<Contact> contacts = db.selectContactByName(s.toString());
         for (int i = 0; i < contacts.size(); i++) {
             final TableRow row = new TableRow(this);
             TextView info = new TextView(this);
@@ -76,11 +76,11 @@ public class AddFriend extends AppCompatActivity {
     }
 
     public void addFriend(int id, TableRow row){
-        if(!(selectedContacts.contains(db.findById(id)))){
-            selectedContacts.add((db.findById(id)));
+        if(!(selectedContacts.contains(db.selectContactById(id)))){
+            selectedContacts.add((db.selectContactById(id)));
         }
         else{
-            selectedContacts.remove(db.finById(id));
+            selectedContacts.remove(db.selectContactById(id));
             row.setBackgroundColor(Color.TRANSPARENT);
         }
     }
