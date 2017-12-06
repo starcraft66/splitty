@@ -2,15 +2,17 @@ package co.tdude.splitty;
 public class ContactGroup {
 
     private int id;
-    private int numPeople;
+    private int contactId;
+    private int eventId;
 
     public ContactGroup (){
 
     }
 
-    public ContactGroup(int id, int numPeople) {
+    public ContactGroup(int id, int contactId, int eventId) {
         this.id = id;
-        this.numPeople = numPeople;
+        this.contactId = contactId;
+        this.eventId = eventId;
     }
 
     public int getId() {
@@ -21,11 +23,19 @@ public class ContactGroup {
         this.id = id;
     }
 
-    public int getNumPeople() {
-        return numPeople;
+    public int getContactId() {
+        return contactId;
     }
 
-    public void setNumPeople(int numPeople) {
-        this.numPeople = numPeople;
+    public void setContactId(int contactId) {
+        this.contactId = contactId;
+    }
+
+    public int getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
     }
 }

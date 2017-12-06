@@ -7,17 +7,17 @@ package co.tdude.splitty;
 public class PurchaseGroup {
 
     private int id;
-    private int numPurchase;
-    private double totalCost;
+    private int purchaseId;
+    private double eventId;
 
     public PurchaseGroup(){
 
     }
 
-    public PurchaseGroup(int id, int numPurchase, double totalCost) {
+    public PurchaseGroup(int id, int purchaseId, double eventId) {
         this.id = id;
-        this.numPurchase = numPurchase;
-        this.totalCost = totalCost;
+        this.purchaseId = purchaseId;
+        this.eventId = eventId;
     }
 
     public int getId() {
@@ -28,19 +28,19 @@ public class PurchaseGroup {
         this.id = id;
     }
 
-    public int getNumPurchase() {
-        return numPurchase;
+    public int getPurchaseId() {
+        return purchaseId;
     }
 
-    public void setNumPurchase(int numPurchase) {
-        this.numPurchase = numPurchase;
+    public void setPurchaseId(int purchaseId) {
+        this.purchaseId = purchaseId;
     }
 
-    public double getTotalCost() {
-        return totalCost;
+    public double getEventId() {
+        return eventId;
     }
 
-    public void setTotalCost(double totalCost) {
-        this.totalCost = totalCost;
+    public void setEventId(double eventId) {
+        this.eventId = eventId;
     }
 }

@@ -71,7 +71,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void insertContactGroup(ContactGroup cg) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sqlInsert = "insert into CONTACT_GROUP values(null, " + cg.getId() + ", " + cg.getNumPeople() + ")";
+        String sqlInsert = "insert into CONTACT_GROUP values(null, " + cg.getId() + ", " + cg.getContactId() + ", " + cg.getEventId() + ")";
 
         db.execSQL(sqlInsert);
         db.close();
@@ -79,7 +79,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void insertPurchaseGroup(PurchaseGroup pg) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sqlInsert = "insert into PURCHASE_GROUP values(null, " + pg.getId() + ", " + pg.getNumPurchase() + ", " + pg.getTotalCost() + ")";
+        String sqlInsert = "insert into PURCHASE_GROUP values(null, " + pg.getId() + ", " + pg.getPurchaseId() + ", " + pg.getEventId() + ")";
 
         db.execSQL(sqlInsert);
         db.close();
@@ -170,9 +170,10 @@ public class DatabaseManager extends SQLiteOpenHelper {
             Cursor curs = db.rawQuery(sqlQuery, null);
             if (curs.moveToFirst()) {
                 int id = curs.getInt(0);
-                int numPeople = curs.getInt(1);
+                int contactId = curs.getInt(1);
+                int eventId = curs.getInt(2);
 
-                cg = new ContactGroup(id, numPeople);
+                cg = new ContactGroup(id, contactId, eventId);
             }
         } catch (Exception ex){
             Log.wtf("selectContactGroupById error", ex.getMessage());

@@ -1,7 +1,5 @@
 package co.tdude.splitty;
 
-import android.database.sqlite.SQLiteDatabase;
-
 /**
  * Created by wfour on 2017-11-22.
  */
