@@ -1,5 +1,6 @@
 package co.tdude.splitty;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,9 +20,9 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createContact = "create table CONTACT (C_ID integer primary key autoincrement, C_FIRST text, C_LAST text, EMAIL text)";
-        String createEvent = "create table EVENT (E_ID integer primary key autoincrement, NAME text, C_GROUP_ID number, P_GROUP_ID number, START_DATE date, END_DATE date)";
-        String createPurchase = "create table PURCHASE (P_ID integer primary key autoincrement, NAME text, BUYER_ID number, COST number, DATE date)";
+        String createContact = "create table CONTACT (C_ID integer primary key autoincrement, C_FIRST text, C_LAST text, C_EMAIL text)";
+        String createEvent = "create table EVENT (E_ID integer primary key autoincrement, E_NAME text, C_GROUP_ID number, P_GROUP_ID number, E_START_DATE date, E_END_DATE date)";
+        String createPurchase = "create table PURCHASE (P_ID integer primary key autoincrement, P_DESC text, P_BUYER_ID number, P_COST number, P_DATE date)";
         String createContactGroup = "create table CONTACT_GROUP (C_GROUP_ID number, C_ID number, E_ID)";
         String createPurchaseGroup = "create table PURCHASE_GROUP (P_GROUP_ID number, P_ID number, E_ID number)";
 
@@ -60,7 +61,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
 
     public void insertPurchase(Purchase p) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sqlInsert = "insert into PURCHASE values(null, '" + p.getName() + "', " + p.getBuyerId() + ", " + p.getCost() + ", '" + p.getDate() + "')";
+        String sqlInsert = "insert into PURCHASE values(null, '" + p.getDesc() + "', " + p.getBuyerId() + ", " + p.getCost() + ", '" + p.getDate() + "')";
 
         db.execSQL(sqlInsert);
         db.close();
@@ -87,7 +88,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         Contact c = null;
 
         try {
-            String sqlQuery = "select * from CONTACT where ID = " + contactId;
+            String sqlQuery = "select * from CONTACT where C_ID = " + contactId;
 
             Cursor curs = db.rawQuery(sqlQuery, null);
 
@@ -110,15 +111,15 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public ArrayList<Contact> selectContactByName(String c_first){
         ArrayList<Contact> query = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM CONTACT WHERE C_FIRST like '%"+c_first+"%'", null);
-        while (cursor.moveToNext()) {
+        Cursor curs = db.rawQuery("SELECT * FROM CONTACT WHERE C_FIRST like '%" +c_first +"%'", null);
+        while (curs.moveToNext()) {
             Contact candy = new Contact();
-            candy.setFirstName(cursor.getString(1));
-            candy.setLastName(cursor.getString(2));
-            candy.setEmail(cursor.getString(3));
+            candy.setFirstName(curs.getString(1));
+            candy.setLastName(curs.getString(2));
+            candy.setEmail(curs.getString(3));
             query.add(candy);
         }
-        cursor.close();
+        curs.close();
         return query;
     }
 
@@ -127,7 +128,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         Event e = null;
 
         try {
-            String sqlQuery = "select * from EVENT where ID = " + eventId;
+            String sqlQuery = "select * from EVENT where E_ID = " + eventId;
 
             Cursor curs = db.rawQuery(sqlQuery, null);
             if (curs.moveToFirst()) {
@@ -153,17 +154,17 @@ public class DatabaseManager extends SQLiteOpenHelper {
         Purchase p = null;
 
         try {
-            String sqlQuery = "select * from PURCHASE where ID = " + purchaseId;
+            String sqlQuery = "select * from PURCHASE where P_ID = " + purchaseId;
 
             Cursor curs = db.rawQuery(sqlQuery, null);
             if (curs.moveToFirst()) {
                 int id = curs.getInt(0);
-                String name = curs.getString(1);
+                String desc = curs.getString(1);
                 int buyerId = curs.getInt(2);
                 double cost = curs.getDouble(3);
                 Date date = new Date(curs.getLong(4) * 1000);
 
-                p = new Purchase(id, name, buyerId, cost, date);
+                p = new Purchase(id, desc, buyerId, cost, date);
             }
             curs.close();
         } catch (Exception ex) {
@@ -178,7 +179,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         ContactGroup cg = null;
 
         try {
-            String sqlQuery = "select * from CONTACT_GROUP where ID = " + contactGroupId;
+            String sqlQuery = "select * from CONTACT_GROUP where C_GROUP_ID = " + contactGroupId;
 
             Cursor curs = db.rawQuery(sqlQuery, null);
             if (curs.moveToFirst()) {
@@ -201,7 +202,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
         PurchaseGroup pg = null;
 
         try {
-            String sqlQuery = "select * from PURCHASE_GROUP where ID = " + purchaseGroupId;
+            String sqlQuery = "select * from PURCHASE_GROUP where P_GROUP_ID = " + purchaseGroupId;
 
             Cursor curs = db.rawQuery(sqlQuery, null);
             if (curs.moveToFirst()) {
@@ -220,32 +221,78 @@ public class DatabaseManager extends SQLiteOpenHelper {
     }
 
     public void updateContactById(int contactId, String firstName, String lastName, String email, double loaned, double owed){
-        String sqlUpdate = "UPDATE CONTACT " +
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        /*String sqlUpdate = "UPDATE CONTACT " +
                 "SET C_FIRST = " +firstName + ", C_LAST = " +email +", C_EMAIL = " +email +" " +
-                "WHERE C_ID = " +contactId;
+                "WHERE C_ID = " +contactId;*/
+
+        ContentValues cv = new ContentValues();
+        cv.put("C_FIRST", firstName);
+        cv.put("C_LAST", lastName);
+        cv.put("C_EMAIL", email);
+
+        db.update("CONTACT", cv, "C_ID = " +contactId, null);
     }
 
     public void updateEventById(int eventId, String name, int contactGroupId, int purchaseGroupId, Date startDate, Date endDate){
-        String sqlUpdate ="UPDATE EVENT " +
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        /*String sqlUpdate ="UPDATE EVENT " +
                 "SET NAME = " +name +", C_GROUP_ID = " +contactGroupId +", P_GROUP_ID = " +purchaseGroupId +", START_DATE = " +startDate +", END_DATE = " +endDate +" " +
-                "WHERE E_ID = " +eventId;
+                "WHERE E_ID = " +eventId;*/
+
+        ContentValues cv = new ContentValues();
+        cv.put("E_NAME", name);
+        cv.put("C_GROUP_ID", contactGroupId);
+        cv.put("P_GROUP_ID", purchaseGroupId);
+        cv.put("E_START_DATE", String.valueOf(startDate));
+        cv.put("E_END_DATE", String.valueOf(endDate));
+
+        db.update("EVENT", cv, "E_ID = " +eventId, null);
     }
 
-    public void updatePurchaseById(int purchaseId, String name, int buyerId, double cost, Date date){
-        String sqlUpdate = "UPDATE PURCHASE " +
-                "SET P_NAME = " +name + ", BUYER_ID = " +buyerId +", COST = " +cost +", DATE = " +date +" "+
-                "WHERE P_ID = " +purchaseId;
+    public void updatePurchaseById(int purchaseId, String desc, int buyerId, double cost, Date date){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        /*String sqlUpdate = "UPDATE PURCHASE " +
+                "SET P_DESC = " +desc + ", P_BUYER_ID = " +buyerId +", P_COST = " +cost +", P_DATE = " +date +" "+
+                "WHERE P_ID = " +purchaseId;*/
+
+        ContentValues cv = new ContentValues();
+        cv.put("P_DESC", desc);
+        cv.put("P_BUYER_ID", buyerId);
+        cv.put("P_COST", cost);
+        cv.put("P_DATE", String.valueOf(date));
+
+        db.update("PURCHASE", cv, "P_ID = " +purchaseId, null);
     }
 
     public void updateContactGroupById(int contactGroupId, int contactId, int eventId){
-        String sqlUpdate = "UPDATE CONTACT_GROUP " +
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        /*String sqlUpdate = "UPDATE CONTACT_GROUP " +
                 "SET C_ID = " +contactId +", E_ID = " +eventId +" " +
-                "WHERE C_GROUP_ID = " +contactGroupId;
+                "WHERE C_GROUP_ID = " +contactGroupId;*/
+
+        ContentValues cv = new ContentValues();
+        cv.put("C_ID", contactId);
+        cv.put("E_ID", eventId);
+
+        db.update("CONTACT_GROUP", cv, "C_GROUP_ID = " +contactGroupId, null);
     }
 
     public void updatePurchaseGroupById(int purchaseGroupId, int purchaseId, double eventId){
-        String sqlUpdate = "UPDATE CONTACT_GROUP " +
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        /*String sqlUpdate = "UPDATE CONTACT_GROUP " +
                 "SET C_ID = " +purchaseId +", E_ID = " +eventId +" " +
-                "WHERE P_GROUP_ID = " +purchaseGroupId;
+                "WHERE P_GROUP_ID = " +purchaseGroupId;*/
+
+        ContentValues cv = new ContentValues();
+        cv.put("P_ID", purchaseId);
+        cv.put("E_ID", eventId);
+
+        db.update("PURCHASE_GROUP", cv, "P_GROUP_ID = " +purchaseGroupId, null);
     }
 }

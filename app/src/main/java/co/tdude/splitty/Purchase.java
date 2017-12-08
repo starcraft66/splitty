@@ -1,6 +1,5 @@
 package co.tdude.splitty;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -10,7 +9,7 @@ import java.util.Date;
 public class Purchase {
 
     private int id;
-    private String name;
+    private String desc;
     private int buyerId;
     private double cost;
     private Date date;
@@ -18,9 +17,9 @@ public class Purchase {
     public Purchase() {
     }
 
-    public Purchase(int id, String name, int buyerId, double cost, Date date) {
+    public Purchase(int id, String desc, int buyerId, double cost, Date date) {
         this.id = id;
-        this.name = name;
+        this.desc = desc;
         this.buyerId = buyerId;
         this.cost = cost;
         this.date = date;
@@ -34,12 +33,12 @@ public class Purchase {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public int getBuyerId() {
