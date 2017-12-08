@@ -1,17 +1,17 @@
 <resources>
-    <string name="app_name">Splitty</string>
-    <string name="title_activity_add_event">AddEventActivity</string>
-    <string name="title_activity_list_purchase">ListPurchaseActivity</string>
+    <string desc="app_name">Splitty</string>
+    <string desc="title_activity_add_event">AddEventActivity</string>
+    <string desc="title_activity_list_purchase">ListPurchaseActivity</string>
 
-    <string name="eventsexpenses">Events / Expenses</string>
-    <string name="entereventname">Enter Event Name</string>
-    <string name="shortdesc">Short Desctiption</string>
-    <string name="invite">Invite</string>
-    <string name="create">Create</string>
-    <string name="back">Back</string>
-    <string name="title_activity_add_friend">AddFriend</string>
-    <string name="search">Search</string>
-    <string name="add_friend">Add Friend</string>
-    <string name="youowe">You owe </string>
-    <string name="youreceive">You receive </string>
+    <string desc="eventsexpenses">Events / Expenses</string>
+    <string desc="entereventname">Enter Event Name</string>
+    <string desc="shortdesc">Short Desctiption</string>
+    <string desc="invite">Invite</string>
+    <string desc="create">Create</string>
+    <string desc="back">Back</string>
+    <string desc="title_activity_add_friend">AddFriend</string>
+    <string desc="search">Search</string>
+    <string desc="add_friend">Add Friend</string>
+    <string desc="youowe">You owe </string>
+    <string desc="youreceive">You receive </string>
 </resources>

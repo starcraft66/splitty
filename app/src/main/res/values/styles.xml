@@ -1,48 +1,48 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style desc="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item desc="colorPrimary">@color/colorPrimary</item>
+        <item desc="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item desc="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style desc="AppTheme.NoActionBar">
+        <item desc="windowActionBar">false</item>
+        <item desc="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style desc="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style desc="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="TextStyle" parent="@android:style/TextAppearance">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:padding">10dp</item>
-        <item name="android:textAppearance">@android:style/TextAppearance.Material.Large</item>
+    <style desc="TextStyle" parent="@android:style/TextAppearance">
+        <item desc="android:layout_width">wrap_content</item>
+        <item desc="android:layout_height">wrap_content</item>
+        <item desc="android:textSize">24sp</item>
+        <item desc="android:padding">10dp</item>
+        <item desc="android:textAppearance">@android:style/TextAppearance.Material.Large</item>
     </style>
 
-    <style name="LabelStyle" parent="TextStyle">
-        <item name="android:background">@color/lightGray</item>
+    <style desc="LabelStyle" parent="TextStyle">
+        <item desc="android:background">@color/lightGray</item>
     </style>
 
-    <style name="CenteredTextStyle" parent="TextStyle">
-        <item name="android:gravity">center</item>
+    <style desc="CenteredTextStyle" parent="TextStyle">
+        <item desc="android:gravity">center</item>
     </style>
 
-    <style name="ButtonStyle" parent="TextStyle">
-        <item name="android:background">@color/darkGray</item>
+    <style desc="ButtonStyle" parent="TextStyle">
+        <item desc="android:background">@color/darkGray</item>
     </style>
 
-    <style name="InputStyle" parent="CenteredTextStyle">
-        <item name="android:textColor">@color/darkBlue</item>
+    <style desc="InputStyle" parent="CenteredTextStyle">
+        <item desc="android:textColor">@color/darkBlue</item>
     </style>
 
-    <style name="OutputStyle" parent="CenteredTextStyle">
-        <item name="android:background">@color/lightGreen</item>
+    <style desc="OutputStyle" parent="CenteredTextStyle">
+        <item desc="android:background">@color/lightGreen</item>
     </style>
 
 </resources>
